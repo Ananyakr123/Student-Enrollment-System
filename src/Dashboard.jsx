@@ -8,11 +8,11 @@ const Dashboard=()=>{
 }}>
             <div className="uppercontainer border-b-8 w-100% flex">
                 <div className={'tabs_look'}>
-                    <NavLink to="/Students" className="tabs_look">
+                    <NavLink to="/students" className="tabs_look">
           Student Management
         </NavLink></div>
                 <div className= {'tabs_look '}  onClick={() => {
-    console.log("hello");
+    
   }} >  <NavLink to="/courses" className="tabs_look">
           Course Management
         </NavLink></div>
