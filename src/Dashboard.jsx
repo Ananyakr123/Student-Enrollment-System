@@ -16,10 +16,11 @@ const Dashboard=()=>{
   }} >  <NavLink to="/courses" className="tabs_look">
           Course Management
         </NavLink></div>
-                <div className={'tabs_look'}>  <NavLink to="/students" className="tabs_look">
-          Student Management
+                <div className={'tabs_look'}>  <NavLink to="/mentors" className="tabs_look">
+         Mentor Management
         </NavLink></div>
-                <div className={'tabs_look'}>  <NavLink to="/report" className="tabs_look">
+                <div className={'tabs_look'}> 
+                     <NavLink to="/reports" className="tabs_look">
         Report Analysis
         </NavLink></div>
             </div>
