@@ -1,0 +1,569 @@
+.studentPage {
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 45px 50px;
+    background: linear-gradient(
+        135deg,
+        #f6f3ff,
+        #fbfaff,
+        #f3f7ff
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.studentPage .studentHeading {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 28px;
+}
+
+
+.studentPage .studentHeadingIcon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 17px;
+    background: #eee9ff;
+    color: #7048e8;
+}
+
+
+.studentPage .studentHeading h1 {
+    margin: 0;
+    color: #37304a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+.studentPage .studentHeading p {
+    margin: 5px 0 0;
+    color: #938ba2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+
+.studentPage .studentActions {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 30px;
+}
+
+
+.studentPage .studentActionCard {
+    min-height: 145px;
+    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #ebe7f2;
+    box-shadow: 0 5px 16px rgba(72, 52, 110, 0.07);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+
+.studentPage .studentActionCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(72, 52, 110, 0.13);
+}
+
+
+.studentPage .studentActionCard:nth-child(1) {
+    border-bottom: 4px solid #7048e8;
+}
+
+.studentPage .studentActionCard:nth-child(2) {
+    border-bottom: 4px solid #3b82f6;
+}
+
+.studentPage .studentActionCard:nth-child(3) {
+    border-bottom: 4px solid #ef4444;
+}
+
+.studentPage .studentActionCard:nth-child(4) {
+    border-bottom: 4px solid #10b981;
+}
+
+
+.studentPage .studentActionIcon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+}
+
+
+.studentPage .addIcon {
+    background: #f0ebff;
+    color: #7048e8;
+}
+
+
+.studentPage .updateIcon {
+    background: #eaf3ff;
+    color: #3b82f6;
+}
+
+
+.studentPage .deleteIcon {
+    background: #fff0f0;
+    color: #ef4444;
+}
+
+
+.studentPage .viewIcon {
+    background: #e9fbf4;
+    color: #10b981;
+}
+
+
+.studentPage .studentActionText h3 {
+    margin: 0;
+    color: #3f3654;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.studentPage .studentActionText p {
+    margin: 4px 0 0;
+    color: #9991a5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 11px;
+}
+
+
+.studentPage .studentActionArrow {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    color: #aaa2b2;
+    transform: rotate(180deg);
+    transition: 0.25s ease;
+}
+
+
+.studentPage .studentActionCard:hover .studentActionArrow {
+    right: 14px;
+    color: #7048e8;
+}
+
+
+.studentPage .studentForm {
+    width: 100%;
+    max-width: 650px;
+    box-sizing: border-box;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid #e8e2f0;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(72, 52, 110, 0.11);
+}
+
+
+.studentPage .formHeading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee9f2;
+}
+
+
+.studentPage .formHeadingIcon {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+
+.studentPage .formHeading h2 {
+    margin: 0;
+    color: #3f3654;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.studentPage .formHeading p {
+    margin: 3px 0 0;
+    color: #9a92a5;
+    font-size: 12px;
+}
+
+
+.studentPage .studentInputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.studentPage .studentInputGroup label {
+    padding-left: 4px;
+    color: #5d5668;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.studentPage .studentInput {
+    width: 100%;
+    height: 46px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    border: 1px solid #ded8e7;
+    border-radius: 11px;
+    outline: none;
+    background: #ffffff;
+    color: #40384c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentInput::placeholder {
+    color: #aaa2b1;
+}
+
+
+.studentPage .studentInput:focus {
+    border-color: #7048e8;
+    box-shadow: 0 0 0 3px rgba(112, 72, 232, 0.10);
+}
+
+
+.studentPage .studentReadonly {
+    background: #f7f5f9;
+    color: #81798a;
+    cursor: not-allowed;
+}
+
+
+.studentPage .studentSearchRow {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+
+.studentPage .studentSearchRow .studentInput {
+    flex: 1;
+}
+
+
+.studentPage .studentSearchButton {
+    height: 46px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: none;
+    border-radius: 11px;
+    background: #7048e8;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(112, 72, 232, 0.18);
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentSearchButton:hover {
+    background: #6038d0;
+    transform: translateY(-2px);
+}
+
+
+.studentPage .studentFormButtons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+
+.studentPage .studentPrimaryButton {
+    min-height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: none;
+    border-radius: 11px;
+    background: #7048e8;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(112, 72, 232, 0.18);
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentPrimaryButton:hover {
+    background: #6038d0;
+    transform: translateY(-2px);
+}
+
+
+.studentPage .studentSecondaryButton {
+    min-height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #e1dce8;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #6e6677;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentSecondaryButton:hover {
+    background: #f8f5fb;
+    color: #40384c;
+    transform: translateY(-2px);
+}
+
+
+.studentPage .studentDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.studentPage .studentDetailItem {
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    background: #f8f6fb;
+}
+
+
+.studentPage .studentDetailItem span {
+    color: #938b9d;
+    font-size: 12px;
+}
+
+
+.studentPage .studentDetailItem strong {
+    color: #40384c;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.studentPage .deleteConfirmation {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    background: #fff6f6;
+    border: 1px solid #f8dddd;
+    text-align: center;
+}
+
+
+.studentPage .deleteConfirmationIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffe5e5;
+    color: #ef4444;
+}
+
+
+.studentPage .deleteConfirmation h3 {
+    margin: 0;
+    color: #4b3e48;
+    font-size: 17px;
+}
+
+
+.studentPage .deleteConfirmation p {
+    margin: 7px 0 3px;
+    color: #948891;
+    font-size: 13px;
+}
+
+
+.studentPage .deleteConfirmation strong {
+    color: #dc4444;
+    font-size: 14px;
+}
+
+
+.studentPage .studentDeleteButton {
+    min-height: 44px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: none;
+    border-radius: 11px;
+    background: #ef4444;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentDeleteButton:hover {
+    background: #dc3333;
+    transform: translateY(-2px);
+}
+
+
+.studentPage .studentBackDashboard {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #e9e4ef;
+    color: #6c6476;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(72, 52, 110, 0.07);
+    transition: 0.2s ease;
+}
+
+
+.studentPage .studentBackDashboard:hover {
+    color: #7048e8;
+    transform: translateX(-3px);
+}
+
+
+@media (max-width: 1000px) {
+
+    .studentPage .studentActions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .studentPage {
+        padding: 30px 18px;
+    }
+
+    .studentPage .studentActions {
+        grid-template-columns: 1fr;
+    }
+
+    .studentPage .studentHeading h1 {
+        font-size: 23px;
+    }
+
+    .studentPage .studentForm {
+        padding: 22px;
+    }
+
+    .studentPage .studentSearchRow {
+        flex-direction: column;
+    }
+
+    .studentPage .studentSearchButton {
+        width: 100%;
+    }
+
+    .studentPage .studentFormButtons {
+        flex-direction: column;
+    }
+
+    .studentPage .studentPrimaryButton,
+    .studentPage .studentSecondaryButton,
+    .studentPage .studentDeleteButton {
+        width: 100%;
+    }
+
+    .studentPage .studentDetailItem {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .studentPage .studentBackDashboard {
+        position: static;
+        align-self: flex-start;
+        margin-bottom: 20px;
+    }
+
+}

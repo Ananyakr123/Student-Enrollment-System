@@ -26,12 +26,11 @@
 
     padding: 20px;
 
-    border: none !important;
     border-radius: 18px !important;
 
     background: #ffffff;
 
-    color: #3f3654 !important;
+  
 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
@@ -65,22 +64,26 @@
 
 
 .uppercontainer > div:nth-child(1) {
-    border-top: 4px solid #7048e8;
+    color: #7048e8;
+    border-bottom: 4px solid #7048e8;
     border-radius: 18px;
 }
 
 .uppercontainer > div:nth-child(2) {
-    border-top: 4px solid #3b82f6;
+    color:#3b82f6;
+    border-bottom: 4px solid #3b82f6;
     border-radius: 18px;
 }
 
 .uppercontainer > div:nth-child(3) {
-    border-top: 4px solid #10b981;
+    color:#10b981;
+    border-bottom: 4px solid #10b981;
     border-radius: 18px;
 }
 
 .uppercontainer > div:nth-child(4) {
-    border-top: 4px solid #f59e0b;
+    color:#f59e0b;
+    border-bottom: 4px solid #f59e0b;
     border-radius: 18px;
 }
 
