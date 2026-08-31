@@ -5,7 +5,8 @@ const connectDB=require("./config/db");
 const studentRoutes = require("./routes/studentRoutes");  
 const courseRoutes = require("./routes/courseRoutes");
 const mentorRoutes = require("./routes/mentorRoutes");
-const reportRoutes = require("./routes/reportRoutes");  
+const reportRoutes = require("./routes/reportRoutes"); 
+const authRoutes = require("./routes/authRoutes"); 
 
 //this tells dot.env package to read .env file 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/students", studentRoutes);
 app.use("/api/mentors", mentorRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/reports",reportRoutes);
+app.use("/api/auth",authRoutes);
 
 const PORT=process.env.PORT || 5001;
 app.listen(PORT,()=>{
