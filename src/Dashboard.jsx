@@ -1,4 +1,5 @@
 import './tabs.css'
+import {useNavigate} from 'react-router-dom'
 import {
     Users,
     BookOpen,
@@ -7,8 +8,18 @@ import {
     ArrowRight
 
 } from 'lucide-react'
-import {NavLink} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
 const Dashboard=()=>{
+    const navigate=useNavigate();
+    const handleLogout=async(e)=>{
+        try{
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+           navigate('/login')
+        }catch(e){
+            alert(e)
+        }
+    }
     return (
         <>
         <div className="main h-11/12 w-full m-2 p-10 pl-5   rounded-lg" 
@@ -40,6 +51,7 @@ const Dashboard=()=>{
         Report Analysis <ArrowRight size={20}/>
         </NavLink></div>
             </div>
+            <button onClick={handleLogout} className='bg-gray-100 text-black shadow-lg shadow-mist-300 rounded-2xl p-5 w-40 absolute bottom-10 sm:w-20 md:w-30'>Logout</button>
         </div>
         </>
     )
