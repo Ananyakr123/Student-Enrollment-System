@@ -21,7 +21,7 @@ const SignUp = () => {
       }
 
       const response = await fetch(
-        "http://localhost:5001/api/auth/signup",
+        `${import.meta.env.VITE_API_URL}/api/auth/signup`,
         {
           method: "POST",
           headers: {

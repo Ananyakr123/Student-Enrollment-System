@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./mentor.css";
 import "./tabs.css";
 
 const Mentors = () => {
+
     const [addMentor, setaddMentor] = useState(false);
     const [deleteMentorBox, setdeleteMentorBox] = useState(false);
     const [viewMentor, setviewMentor] = useState(false);
@@ -23,23 +24,66 @@ const Mentors = () => {
 
     const [mentors, setMentors] = useState([]);
 
-    const courses = [
-        "B.Tech IT",
-        "B.Tech CSE",
-        "BCA",
-        "MCA",
-        "MBA"
-    ];
+    // Courses are now fetched from backend
+    const [courses, setCourses] = useState([]);
+
+
+    // --------------------------------------------------
+    // FETCH COURSES
+    // --------------------------------------------------
+
+    const fetchCourses = async () => {
+
+        try {
+
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/courses`
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch courses");
+            }
+
+            const data = await response.json();
+
+            setCourses(data);
+
+        } catch (error) {
+
+            console.log("Error fetching courses:", error);
+
+            setCourses([]);
+        }
+    };
+
+
+    // Fetch courses when Mentor component loads
+    useEffect(() => {
+        fetchCourses();
+    }, []);
+
+
+    // --------------------------------------------------
+    // CLOSE ALL FORMS
+    // --------------------------------------------------
 
     const closeAllForms = () => {
+
         setaddMentor(false);
         setdeleteMentorBox(false);
         setviewMentor(false);
         seteditMentor(false);
         setdeleteMentor(false);
+
     };
 
+
+    // --------------------------------------------------
+    // RESET MENTOR
+    // --------------------------------------------------
+
     const resetMentor = () => {
+
         setMentor({
             MentorID: "",
             name: "",
@@ -50,39 +94,65 @@ const Mentors = () => {
             salary: "",
             courses: []
         });
+
     };
 
+
+    // --------------------------------------------------
+    // HANDLE INPUT CHANGE
+    // --------------------------------------------------
+
     const handleChange = (e) => {
+
         setMentor({
             ...mentor,
             [e.target.name]: e.target.value
         });
+
     };
 
-    const handleCourseSelect = (course) => {
+
+    // --------------------------------------------------
+    // SELECT / UNSELECT COURSE
+    // --------------------------------------------------
+
+    const handleCourseSelect = (courseID) => {
+
         setMentor((prev) => {
-            if (prev.courses.includes(course)) {
+
+            if (prev.courses.includes(courseID)) {
+
                 return {
                     ...prev,
                     courses: prev.courses.filter(
-                        (item) => item !== course
+                        (item) => item !== courseID
                     )
                 };
+
             }
 
             return {
                 ...prev,
-                courses: [...prev.courses, course]
+                courses: [...prev.courses, courseID]
             };
+
         });
+
     };
 
+
+    // --------------------------------------------------
+    // ADD MENTOR
+    // --------------------------------------------------
+
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         try {
+
             const response = await fetch(
-                "http://localhost:5001/api/mentors",
+                `${import.meta.env.VITE_API_URL}/api/mentors`,
                 {
                     method: "POST",
                     headers: {
@@ -95,68 +165,141 @@ const Mentors = () => {
             const data = await response.json();
 
             if (response.ok) {
+
                 alert("Mentor added successfully!");
 
                 resetMentor();
                 setaddMentor(false);
+
             } else {
-                alert(data.message || "Failed to add mentor");
+
+                alert(
+                    data.message ||
+                    "Failed to add mentor"
+                );
+
             }
+
         } catch (e) {
+
             console.log(e);
-            alert("Unable to connect to the backend");
+
+            alert(
+                "Unable to connect to the backend"
+            );
+
         }
+
     };
 
+
+    // --------------------------------------------------
+    // GET ALL MENTORS
+    // --------------------------------------------------
+
     const getAllMentors = async () => {
+
         try {
+
             const response = await fetch(
-                "http://localhost:5001/api/mentors"
+                `${import.meta.env.VITE_API_URL}/api/mentors`
             );
 
             const data = await response.json();
 
             if (response.ok) {
-                setMentors(data.mentors || data);
+
+                setMentors(
+                    data.mentors || data
+                );
+
                 setviewMentor(true);
+
             } else {
-                alert(data.message || "Unable to fetch mentors");
+
+                alert(
+                    data.message ||
+                    "Unable to fetch mentors"
+                );
+
             }
+
         } catch (e) {
+
             console.log(e);
-            alert("Something went wrong");
+
+            alert(
+                "Something went wrong"
+            );
+
         }
+
     };
 
+
+    // --------------------------------------------------
+    // SEARCH MENTOR
+    // --------------------------------------------------
+
     const searchForMentorID = async (e) => {
+
         e.preventDefault();
 
         try {
+
             const response = await fetch(
-                "http://localhost:5001/api/mentors/" +
+                `${import.meta.env.VITE_API_URL}/api/mentors/` +
                 mentor.MentorID
             );
 
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message || "Mentor not found");
+
+                alert(
+                    data.message ||
+                    "Mentor not found"
+                );
+
                 return;
+
             }
 
-            setMentor(data.mentor || data);
+            const foundMentor =
+                data.mentor || data;
+
+            setMentor({
+                ...foundMentor,
+
+                // Make sure courses is always an array
+                courses: foundMentor.courses || []
+            });
+
         } catch (e) {
+
             console.log(e);
-            alert("Something went wrong");
+
+            alert(
+                "Something went wrong"
+            );
+
         }
+
     };
 
+
+    // --------------------------------------------------
+    // UPDATE MENTOR
+    // --------------------------------------------------
+
     const handleUpdate = async (e) => {
+
         e.preventDefault();
 
         try {
+
             const response = await fetch(
-                "http://localhost:5001/api/mentors/" +
+                `${import.meta.env.VITE_API_URL}/api/mentors/` +
                 mentor.MentorID,
                 {
                     method: "PUT",
@@ -170,25 +313,48 @@ const Mentors = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Mentor updated successfully!");
+
+                alert(
+                    "Mentor updated successfully!"
+                );
 
                 resetMentor();
                 seteditMentor(false);
+
             } else {
-                alert(data.message || "Failed to update mentor");
+
+                alert(
+                    data.message ||
+                    "Failed to update mentor"
+                );
+
             }
+
         } catch (e) {
+
             console.log(e);
-            alert("Unable to update mentor");
+
+            alert(
+                "Unable to update mentor"
+            );
+
         }
+
     };
 
+
+    // --------------------------------------------------
+    // DELETE MENTOR
+    // --------------------------------------------------
+
     const handleDelete = async (e) => {
+
         e.preventDefault();
 
         try {
+
             const response = await fetch(
-                "http://localhost:5001/api/mentors/" +
+                `${import.meta.env.VITE_API_URL}/api/mentors/` +
                 mentor.MentorID,
                 {
                     method: "DELETE"
@@ -198,64 +364,182 @@ const Mentors = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Mentor deleted successfully");
+
+                alert(
+                    "Mentor deleted successfully"
+                );
 
                 resetMentor();
                 setdeleteMentor(false);
+
             } else {
-                alert(data.message || "Mentor not found");
+
+                alert(
+                    data.message ||
+                    "Mentor not found"
+                );
+
             }
+
         } catch (e) {
+
             console.log(e);
-            alert("Unable to delete mentor");
+
+            alert(
+                "Unable to delete mentor"
+            );
+
         }
+
     };
 
+
+    // --------------------------------------------------
+    // COURSE SELECTOR UI
+    // --------------------------------------------------
+
+    const courseSelector = (
+
+        <div className="courseSelector">
+
+            <div className="courseSelectorTitle">
+                Select Courses
+            </div>
+
+            <div className="courseList">
+
+                {courses.length > 0 ? (
+
+                    courses.map((course) => (
+
+                        <div
+                            key={course._id}
+                            className={
+                                mentor.courses.includes(
+                                    course.CourseID
+                                )
+                                    ? "courseOption courseOptionSelected"
+                                    : "courseOption"
+                            }
+                            onClick={() =>
+                                handleCourseSelect(
+                                    course.CourseID
+                                )
+                            }
+                        >
+
+                            <span>
+                                {course.name}
+                            </span>
+
+                            {mentor.courses.includes(
+                                course.CourseID
+                            ) && (
+                                <span>
+                                    ✓
+                                </span>
+                            )}
+
+                        </div>
+
+                    ))
+
+                ) : (
+
+                    <p className="text-gray-500">
+                        No courses available
+                    </p>
+
+                )}
+
+            </div>
+
+        </div>
+
+    );
+
+
+    // --------------------------------------------------
+    // UI
+    // --------------------------------------------------
+
     return (
+
         <>
+
             <div className="mentor-page">
 
                 <div className="mentor-actions">
 
+
+                    {/* ADD MENTOR */}
+
                     <div
                         className="mentor-action-card"
                         onClick={() => {
+
                             closeAllForms();
                             resetMentor();
+
+                            // Refresh courses before opening
+                            fetchCourses();
+
                             setaddMentor(true);
+
                         }}
                     >
                         Add Mentor
                     </div>
 
+
+                    {/* EDIT MENTOR */}
+
                     <div
                         className="mentor-action-card"
                         onClick={() => {
+
                             closeAllForms();
                             resetMentor();
+
+                            // Refresh courses before opening
+                            fetchCourses();
+
                             seteditMentor(true);
+
                         }}
                     >
                         Edit Mentor
                     </div>
 
+
+                    {/* DELETE MENTOR */}
+
                     <div
                         className="mentor-action-card"
                         onClick={() => {
+
                             closeAllForms();
                             resetMentor();
+
                             setdeleteMentor(true);
+
                         }}
                     >
                         Delete Mentor
                     </div>
 
+
+                    {/* VIEW MENTORS */}
+
                     <div
                         className="mentor-action-card"
                         onClick={() => {
+
                             closeAllForms();
                             resetMentor();
+
                             getAllMentors();
+
                         }}
                     >
                         View Mentors
@@ -264,7 +548,12 @@ const Mentors = () => {
                 </div>
 
 
+                {/* =========================================
+                    ADD MENTOR
+                ========================================= */}
+
                 {addMentor && (
+
                     <form
                         className="mentor-form"
                         onSubmit={handleSubmit}
@@ -273,6 +562,7 @@ const Mentors = () => {
                         <h2 className="mentorViewTitle">
                             Add Mentor
                         </h2>
+
 
                         <input
                             type="text"
@@ -283,6 +573,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="text"
                             name="name"
@@ -291,6 +582,7 @@ const Mentors = () => {
                             value={mentor.name}
                             onChange={handleChange}
                         />
+
 
                         <input
                             type="text"
@@ -301,6 +593,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="email"
                             name="email"
@@ -309,6 +602,7 @@ const Mentors = () => {
                             value={mentor.email}
                             onChange={handleChange}
                         />
+
 
                         <input
                             type="text"
@@ -319,6 +613,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="text"
                             name="experience"
@@ -327,6 +622,7 @@ const Mentors = () => {
                             value={mentor.experience}
                             onChange={handleChange}
                         />
+
 
                         <input
                             type="text"
@@ -337,43 +633,9 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
-                        <div className="courseSelector">
 
-                            <div className="courseSelectorTitle">
-                                Select Courses
-                            </div>
+                        {courseSelector}
 
-                            <div className="courseList">
-
-                                {courses.map((course, index) => (
-
-                                    <div
-                                        key={index}
-                                        className={
-                                            mentor.courses.includes(course)
-                                                ? "courseOption courseOptionSelected"
-                                                : "courseOption"
-                                        }
-                                        onClick={() =>
-                                            handleCourseSelect(course)
-                                        }
-                                    >
-
-                                        <span>
-                                            {course}
-                                        </span>
-
-                                        {mentor.courses.includes(course) && (
-                                            <span>✓</span>
-                                        )}
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
-                        </div>
 
                         <div className="flex gap-4 justify-center">
 
@@ -384,12 +646,15 @@ const Mentors = () => {
                                 Add Mentor
                             </button>
 
+
                             <button
                                 type="button"
                                 className="button-24"
                                 onClick={() => {
+
                                     setaddMentor(false);
                                     resetMentor();
+
                                 }}
                             >
                                 Close
@@ -398,10 +663,16 @@ const Mentors = () => {
                         </div>
 
                     </form>
+
                 )}
 
 
+                {/* =========================================
+                    EDIT MENTOR
+                ========================================= */}
+
                 {editMentor && (
+
                     <form
                         className="mentor-form"
                         onSubmit={handleUpdate}
@@ -410,6 +681,7 @@ const Mentors = () => {
                         <h2 className="mentorViewTitle">
                             Update Mentor
                         </h2>
+
 
                         <div className="flex gap-4 justify-center items-center w-full">
 
@@ -422,6 +694,7 @@ const Mentors = () => {
                                 onChange={handleChange}
                             />
 
+
                             <button
                                 type="button"
                                 className="button-41"
@@ -431,6 +704,7 @@ const Mentors = () => {
                             </button>
 
                         </div>
+
 
                         <input
                             type="text"
@@ -441,6 +715,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="text"
                             name="phone"
@@ -449,6 +724,7 @@ const Mentors = () => {
                             value={mentor.phone}
                             onChange={handleChange}
                         />
+
 
                         <input
                             type="email"
@@ -459,6 +735,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="text"
                             name="highest_Education"
@@ -467,6 +744,7 @@ const Mentors = () => {
                             value={mentor.highest_Education}
                             onChange={handleChange}
                         />
+
 
                         <input
                             type="text"
@@ -477,6 +755,7 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
+
                         <input
                             type="text"
                             name="salary"
@@ -486,43 +765,9 @@ const Mentors = () => {
                             onChange={handleChange}
                         />
 
-                        <div className="courseSelector">
 
-                            <div className="courseSelectorTitle">
-                                Select Courses
-                            </div>
+                        {courseSelector}
 
-                            <div className="courseList">
-
-                                {courses.map((course, index) => (
-
-                                    <div
-                                        key={index}
-                                        className={
-                                            mentor.courses.includes(course)
-                                                ? "courseOption courseOptionSelected"
-                                                : "courseOption"
-                                        }
-                                        onClick={() =>
-                                            handleCourseSelect(course)
-                                        }
-                                    >
-
-                                        <span>
-                                            {course}
-                                        </span>
-
-                                        {mentor.courses.includes(course) && (
-                                            <span>✓</span>
-                                        )}
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
-                        </div>
 
                         <div className="flex gap-4 justify-center">
 
@@ -533,12 +778,15 @@ const Mentors = () => {
                                 Update Mentor
                             </button>
 
+
                             <button
                                 type="button"
                                 className="button-24"
                                 onClick={() => {
+
                                     seteditMentor(false);
                                     resetMentor();
+
                                 }}
                             >
                                 Close
@@ -547,10 +795,16 @@ const Mentors = () => {
                         </div>
 
                     </form>
+
                 )}
 
 
+                {/* =========================================
+                    DELETE MENTOR
+                ========================================= */}
+
                 {deleteMentor && (
+
                     <form
                         className="mentor-form"
                         onSubmit={handleDelete}
@@ -559,6 +813,7 @@ const Mentors = () => {
                         <h2 className="mentorViewTitle">
                             Delete Mentor
                         </h2>
+
 
                         <div className="flex gap-4 justify-center items-center w-full">
 
@@ -571,6 +826,7 @@ const Mentors = () => {
                                 onChange={handleChange}
                             />
 
+
                             <button
                                 type="button"
                                 className="button-41"
@@ -581,10 +837,17 @@ const Mentors = () => {
 
                         </div>
 
+
                         <div className="mentor-delete-message">
+
                             Are you sure you want to delete record for{" "}
-                            <strong>{mentor.name}</strong>?
+
+                            <strong>
+                                {mentor.name}
+                            </strong>?
+
                         </div>
+
 
                         <div className="flex gap-5 justify-center">
 
@@ -595,12 +858,15 @@ const Mentors = () => {
                                 Delete
                             </button>
 
+
                             <button
                                 type="button"
-                                className="w-20 rounded bg-green-500 text-white font-bold "
+                                className="w-20 rounded bg-green-500 text-white font-bold"
                                 onClick={() => {
+
                                     setdeleteMentor(false);
                                     resetMentor();
+
                                 }}
                             >
                                 Cancel
@@ -609,99 +875,129 @@ const Mentors = () => {
                         </div>
 
                     </form>
+
                 )}
 
 
+                {/* =========================================
+                    VIEW MENTORS
+                ========================================= */}
+
                 {viewMentor && (
+
                     <div className="mentorView">
 
                         <h2 className="mentorViewTitle">
                             All Mentors
                         </h2>
 
+
                         <div className="mentorGrid">
 
-                            {mentors.map((mentorItem, index) => (
+                            {mentors.map(
+                                (mentorItem, index) => (
 
-                                <div
-                                    className="mentorTab"
-                                    key={
-                                        mentorItem.MentorID || index
-                                    }
-                                >
+                                    <div
+                                        className="mentorTab"
+                                        key={
+                                            mentorItem.MentorID ||
+                                            index
+                                        }
+                                    >
 
-                                    <div className="mentorTabHeader">
 
-                                        <span className="mentorName">
-                                            {mentorItem.name}
-                                        </span>
+                                        <div className="mentorTabHeader">
 
-                                        <span className="mentorID">
-                                            {mentorItem.MentorID}
-                                        </span>
+                                            <span className="mentorName">
+                                                {mentorItem.name}
+                                            </span>
+
+                                            <span className="mentorID">
+                                                {mentorItem.MentorID}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="mentorTabInfo">
+
+                                            <p>
+                                                <strong>
+                                                    Phone:
+                                                </strong>{" "}
+                                                {mentorItem.phone}
+                                            </p>
+
+
+                                            <p>
+                                                <strong>
+                                                    Email:
+                                                </strong>{" "}
+                                                {mentorItem.email}
+                                            </p>
+
+
+                                            <p>
+                                                <strong>
+                                                    Education:
+                                                </strong>{" "}
+                                                {mentorItem.highest_Education}
+                                            </p>
+
+
+                                            <p>
+                                                <strong>
+                                                    Experience:
+                                                </strong>{" "}
+                                                {mentorItem.experience}
+                                            </p>
+
+
+                                            <p>
+                                                <strong>
+                                                    Salary:
+                                                </strong>{" "}
+                                                {mentorItem.salary}
+                                            </p>
+
+                                        </div>
+
+
+                                        <div className="mentorTabCourses">
+
+                                            {(mentorItem.courses || []).map(
+                                                (course, courseIndex) => (
+
+                                                    <span
+                                                        className="mentorCourseTag"
+                                                        key={courseIndex}
+                                                    >
+
+                                                        {course?.name ||
+                                                            course}
+
+                                                    </span>
+
+                                                )
+                                            )}
+
+                                        </div>
 
                                     </div>
 
-                                    <div className="mentorTabInfo">
-
-                                        <p>
-                                            <strong>Phone:</strong>{" "}
-                                            {mentorItem.phone}
-                                        </p>
-
-                                        <p>
-                                            <strong>Email:</strong>{" "}
-                                            {mentorItem.email}
-                                        </p>
-
-                                        <p>
-                                            <strong>Education:</strong>{" "}
-                                            {mentorItem.highest_Education}
-                                        </p>
-
-                                        <p>
-                                            <strong>Experience:</strong>{" "}
-                                            {mentorItem.experience}
-                                        </p>
-
-                                        <p>
-                                            <strong>Salary:</strong>{" "}
-                                            {mentorItem.salary}
-                                        </p>
-
-                                    </div>
-
-                                    <div className="mentorTabCourses">
-
-                                        {(mentorItem.courses || []).map(
-                                            (course, courseIndex) => (
-
-                                                <span
-                                                    className="mentorCourseTag"
-                                                    key={courseIndex}
-                                                >
-                                                    {course?.name || course}
-                                                </span>
-
-                                            )
-                                        )}
-
-                                    </div>
-
-                                </div>
-
-                            ))}
+                                )
+                            )}
 
                         </div>
 
                     </div>
+
                 )}
 
-
-              
-
             </div>
+
         </>
+
     );
 };
 

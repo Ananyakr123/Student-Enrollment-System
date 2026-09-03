@@ -1,7 +1,7 @@
 const Student=require("../models/Student")
 const Course = require("../models/course");
 const Mentor = require("../models/mentor");
-const mongoose=require('mongoose')
+
 const getNumericData=async(req, res)=>{
 try{
     const totalStudents=await Student.countDocuments();

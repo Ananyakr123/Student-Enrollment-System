@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import './course.css'
 import './button.css'
@@ -57,7 +58,7 @@ const Courses = () => {
             console.log("Course ID:", course.CourseID)
 
             const url =
-                `http://localhost:5001/api/courses/${course.CourseID}`
+                `${import.meta.env.VITE_API_URL}/api/courses/${course.CourseID}`
 
             const response = await fetch(url)
 
@@ -93,7 +94,7 @@ const Courses = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/courses/" +
+                `${import.meta.env.VITE_API_URL}/api/courses/` +
                 course.CourseID,
                 {
                     method: "PUT",
@@ -124,7 +125,7 @@ const Courses = () => {
     const getAllCourses = async () => {
         try {
             const response = await fetch(
-                "http://localhost:5001/api/courses"
+                `${import.meta.env.VITE_API_URL}/api/courses`
             )
 
             if (!response.ok) {
@@ -147,7 +148,7 @@ const Courses = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/courses",
+                `${import.meta.env.VITE_API_URL}/api/courses`,
                 {
                     method: "POST",
                     headers: {
@@ -189,7 +190,7 @@ const Courses = () => {
             if (!confirmDelete) return
 
             const response = await fetch(
-                "http://localhost:5001/api/courses/" +
+                `${import.meta.env.VITE_API_URL}/api/courses/` +
                 course.CourseID,
                 {
                     method: "DELETE"
@@ -223,7 +224,7 @@ const Courses = () => {
             try {
 
                 const response = await fetch(
-                    "http://localhost:5001/api/mentors"
+                    `${import.meta.env.VITE_API_URL}/api/mentors`
                 )
 
                 if (!response.ok) {
@@ -735,7 +736,7 @@ const Courses = () => {
 
                             <button
                                 type="submit"
-                                className="w-50 rounded  text-white font-bold bg-red-600 p-2"
+                                className="w-50 rounded text-white font-bold bg-red-600 p-2"
                             >
                                 Delete Course
                             </button>
@@ -763,3 +764,4 @@ const Courses = () => {
 }
 
 export default Courses
+

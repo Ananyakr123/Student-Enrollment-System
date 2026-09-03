@@ -58,7 +58,7 @@ const Students = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/students",
+                `${import.meta.env.VITE_API_URL}/api/students`,
                 {
                     method: "POST",
                     headers: {
@@ -88,7 +88,7 @@ const Students = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/students/roll/" +
+                `${import.meta.env.VITE_API_URL}/api/students/roll/` +
                 student.rollNo
             );
 
@@ -111,7 +111,7 @@ const Students = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/students/roll/" +
+                `${import.meta.env.VITE_API_URL}/api/students/roll/` +
                 student.rollNo,
                 {
                     method: "PUT",
@@ -141,7 +141,7 @@ const Students = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5001/api/students/roll/" +
+                `${import.meta.env.VITE_API_URL}/api/students/roll/` +
                 student.rollNo,
                 {
                     method: "DELETE"
@@ -186,7 +186,6 @@ const Students = () => {
                 </div>
             </div>
 
-
             <div className="studentActions">
 
                 <div
@@ -208,7 +207,6 @@ const Students = () => {
                     <ArrowLeft className="studentActionArrow" size={20} />
                 </div>
 
-
                 <div
                     className="studentActionCard"
                     onClick={() => {
@@ -228,7 +226,6 @@ const Students = () => {
                     <ArrowLeft className="studentActionArrow" size={20} />
                 </div>
 
-
                 <div
                     className="studentActionCard"
                     onClick={() => {
@@ -247,7 +244,6 @@ const Students = () => {
 
                     <ArrowLeft className="studentActionArrow" size={20} />
                 </div>
-
 
                 <div
                     className="studentActionCard"
@@ -270,7 +266,6 @@ const Students = () => {
 
             </div>
 
-
             {addStudent && (
                 <form
                     className="studentForm"
@@ -287,7 +282,6 @@ const Students = () => {
                         </div>
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Student Name</label>
 
@@ -300,7 +294,6 @@ const Students = () => {
                             className="studentInput"
                         />
                     </div>
-
 
                     <div className="studentInputGroup">
                         <label>Course</label>
@@ -326,7 +319,6 @@ const Students = () => {
                         </select>
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Phone Number</label>
 
@@ -339,7 +331,6 @@ const Students = () => {
                             className="studentInput"
                         />
                     </div>
-
 
                     <div className="studentInputGroup">
                         <label>Email</label>
@@ -354,7 +345,6 @@ const Students = () => {
                         />
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Roll Number</label>
 
@@ -367,7 +357,6 @@ const Students = () => {
                             className="studentInput"
                         />
                     </div>
-
 
                     <div className="studentFormButtons">
 
@@ -393,7 +382,6 @@ const Students = () => {
                 </form>
             )}
 
-
             {updateStudent && (
                 <form
                     className="studentForm"
@@ -409,7 +397,6 @@ const Students = () => {
                             <p>Search and update student information</p>
                         </div>
                     </div>
-
 
                     <div className="studentSearchRow">
 
@@ -433,7 +420,6 @@ const Students = () => {
 
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Student Name</label>
 
@@ -445,7 +431,6 @@ const Students = () => {
                             onChange={handleChange}
                         />
                     </div>
-
 
                     <div className="studentInputGroup">
                         <label>Email</label>
@@ -459,7 +444,6 @@ const Students = () => {
                         />
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Roll Number</label>
 
@@ -472,7 +456,6 @@ const Students = () => {
                         />
                     </div>
 
-
                     <div className="studentInputGroup">
                         <label>Phone Number</label>
 
@@ -484,7 +467,6 @@ const Students = () => {
                             onChange={handleChange}
                         />
                     </div>
-
 
                     <div className="studentInputGroup">
                         <label>Course</label>
@@ -510,7 +492,6 @@ const Students = () => {
                         </select>
                     </div>
 
-
                     <div className="studentFormButtons">
 
                         <button
@@ -535,7 +516,6 @@ const Students = () => {
                 </form>
             )}
 
-
             {viewStudent && (
                 <form className="studentForm">
 
@@ -549,7 +529,6 @@ const Students = () => {
                             <p>Search for a student's information</p>
                         </div>
                     </div>
-
 
                     <div className="studentSearchRow">
 
@@ -572,7 +551,6 @@ const Students = () => {
                         </button>
 
                     </div>
-
 
                     <div className="studentDetails">
 
@@ -603,7 +581,6 @@ const Students = () => {
 
                     </div>
 
-
                     <button
                         type="button"
                         className="studentSecondaryButton"
@@ -615,7 +592,6 @@ const Students = () => {
 
                 </form>
             )}
-
 
             {deleteStudent && (
                 <form
@@ -633,7 +609,6 @@ const Students = () => {
                             <p>Search for the record you want to remove</p>
                         </div>
                     </div>
-
 
                     <div className="studentSearchRow">
 
@@ -657,7 +632,6 @@ const Students = () => {
 
                     </div>
 
-
                     <div className="deleteConfirmation">
 
                         <div className="deleteConfirmationIcon">
@@ -677,7 +651,6 @@ const Students = () => {
                         </strong>
 
                     </div>
-
 
                     <div className="studentFormButtons">
 
@@ -702,7 +675,6 @@ const Students = () => {
 
                 </form>
             )}
-
 
             <NavLink
                 to="/"

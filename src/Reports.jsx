@@ -34,7 +34,7 @@ const Reports = () => {
             try {
 
                 const response = await fetch(
-                    "http://localhost:5001/api/reports"
+                    `${import.meta.env.VITE_API_URL}/api/reports`
                 );
 
                 if (!response.ok) {
@@ -246,9 +246,11 @@ const Reports = () => {
 
                         <div>
                             <Users size={22} />
+
                             <span>
                                 Total Students
                             </span>
+
                             <strong>
                                 {totalStudents}
                             </strong>
@@ -263,7 +265,7 @@ const Reports = () => {
 
             <NavLink
                 className="reports-dashboard-button"
-                to="/"
+                to="/dashboard"
             >
                 <span>Back to Dashboard</span>
                 <ArrowRight size={18} />
