@@ -677,7 +677,7 @@ const Students = () => {
             )}
 
             <NavLink
-                to="/"
+                to="/dashboard"
                 className="studentBackDashboard"
             >
                 <ArrowLeft size={18} />
